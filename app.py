@@ -2,12 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import altair as alt
-from scipy.stats import shapiro, levene
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from statsmodels.stats.anova import anova_lm
 from statsmodels.nonparametric.smoothers_lowess import lowess
-from scipy import stats
+import pingouin as pg
+from scipy.stats import norm
+
 
 st.set_page_config(page_title="Bioestimulación Coffea arabica", layout="wide")
 st.title("🌱 Análisis Experimental: Bioestimulación y Radiación Solar en Coffea arabica L.")
@@ -360,7 +361,7 @@ with tab3:
     # Cálculo de Shapiro
     resultados = []
     for col in ['Clorofila_a','Clorofila_b','Clorofila_total','Nitrogeno','Fosforo','Potasio','Calcio','Magnesio']:
-        W, p = shapiro(df_full[col])
+        W, p = pg.normality(df_full[col], method='shapiro')[['W','pval']].values[0]
         resultados.append([col, round(W,3), round(p,4), "✔ Normal" if p>0.05 else "✖ No normal"])
     df_shapiro = pd.DataFrame(resultados, columns=["Variable","W","p-valor","Conclusión"])
 
@@ -415,7 +416,9 @@ with tab3:
     res_levene = []
     for col in df_shapiro["Variable"]:
         grupos = [df_full[df_full["Radiacion"] == r][col] for r in df_full["Radiacion"].unique()]
-        W, p = levene(*grupos)
+        test = pg.homoscedasticity(data=df_full, dv=col, group='Radiacion')
+        W = test['W'].values[0]
+        p = test['pval'].values[0]
         res_levene.append([col, round(W,3), round(p,4), "Homogéneas" if p>0.05 else "Diferentes"])
 
     df_levene = pd.DataFrame(res_levene, columns=["Variable","W","p-valor","Conclusión"])
@@ -543,7 +546,7 @@ with tab4:
     """)
 
     #QQ-Plot
-    theoretical_q = stats.norm.ppf(
+    theoretical_q = norm.ppf(
         (np.arange(1, len(resid_std)+1) - 0.5) / len(resid_std)
     )
 
