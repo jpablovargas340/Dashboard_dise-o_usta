@@ -6,7 +6,6 @@ import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from statsmodels.stats.anova import anova_lm
 from statsmodels.nonparametric.smoothers_lowess import lowess
-import pingouin as pg
 from scipy.stats import norm
 
 
@@ -666,3 +665,4 @@ with tab5:
     - Existe un **tratamiento óptimo** en clorofila total (*{trat}*), que mejora en alrededor de **{mejora:.1f}%** al testigo.  
     - La relación entre **Potasio** y **Clorofila total** es de magnitud `r ≈ {r:.2f}`, lo que respalda el uso de K como indicador fisiológico clave.
     """.format(trat=best_trat, mejora=mejora_pct, r=r_pk))
+
