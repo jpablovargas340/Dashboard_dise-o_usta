@@ -11,7 +11,7 @@ from scipy.stats import norm
 
 st.set_page_config(page_title="Bioestimulación Coffea arabica", layout="wide")
 st.title("🌱 Análisis Experimental: Bioestimulación y Radiación Solar en Coffea arabica L.")
-st.caption("Universidad Santo Tomás — Vanessa Acosta - Juan Pablo Vargas - Lizeth Rodriguez")
+st.caption("Universidad Santo Tomás — Vanessa Acosta - Juan Pablo Vargas")
 
 @st.cache_data
 def cargar_datos():
@@ -665,5 +665,6 @@ with tab5:
     - Existe un **tratamiento óptimo** en clorofila total (*{trat}*), que mejora en alrededor de **{mejora:.1f}%** al testigo.  
     - La relación entre **Potasio** y **Clorofila total** es de magnitud `r ≈ {r:.2f}`, lo que respalda el uso de K como indicador fisiológico clave.
     """.format(trat=best_trat, mejora=mejora_pct, r=r_pk))
+
 
 
