@@ -11,7 +11,7 @@ from scipy.stats import norm
 
 st.set_page_config(page_title="Bioestimulación Coffea arabica", layout="wide")
 st.title("🌱 Análisis Experimental: Bioestimulación y Radiación Solar en Coffea arabica L.")
-st.caption("Universidad Santo Tomás — Vanessa Acosta - Juan Pablo Vargas")
+st.caption("Universidad Santo Tomás - Juan Pablo Vargas")
 
 @st.cache_data
 def cargar_datos():
