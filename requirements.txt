@@ -4,3 +4,5 @@ numpy
 statsmodels
 altair
 pingouin
+scikit-learn
+scipy
